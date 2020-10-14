@@ -14,19 +14,29 @@ namespace ServerSide
 
         static void Main(string[] args)
         {
-            Server server = new Server()
-            {
-                Ports = {new ServerPort("localhost")}
-            };
-
+            Server server = null;
             try
             {
+                server = new Server()
+                {
+                    Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
+                };
 
+                server.Start();
+
+                Console.WriteLine("The server is listening on the port {0}", Port);
+                Console.ReadKey();
             }
-            catch (IOException)
+            catch (IOException e)
             {
-
-                throw;
+                Console.WriteLine("The server failed to start: ", e.Message);
+            }
+            finally
+            {
+                if (server != null)
+                {
+                    server.ShutdownAsync().Wait();
+                }
             }
 
         }
