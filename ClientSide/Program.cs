@@ -1,4 +1,6 @@
-﻿using Dummy;
+﻿using Calc;
+using Dummy;
+using Greet;
 using Grpc.Core;
 using System;
 using System.Collections.Generic;
@@ -24,10 +26,42 @@ namespace ClientSide
                 }
             });
 
-            var client = new DummyService.DummyServiceClient(channel);
+            // Greeting
+            var client = new GreetingService.GreetingServiceClient(channel);
+
+            var greeting = new Greeting()
+            {
+                FirstName = "Johan",
+                LastName = "Clementes"
+            };
+
+            var request = new GreetingRequest()
+            {
+                Greeting = greeting
+            };
+
+            var response = client.Greet(request);
+            Console.WriteLine(response.Result);
+
+            //Calculator
+            var calcClient = new CalculatorService.CalculatorServiceClient(channel);
+
+            var calc = new Calculator
+            {
+                FirstNumber = 10,
+                SecondNumber = 10
+            };
+
+            var calcRequest = new CalculatorRequest()
+            {
+                Calculator = calc
+            };
+
+            var responseCalc = calcClient.Calc(calcRequest);
+            Console.WriteLine(responseCalc.Result);
+
             channel.ShutdownAsync().Wait();
             Console.ReadKey();
-
         }
     }
 }
