@@ -14,13 +14,13 @@ namespace ClientSide
     {
         const string target = "127.0.0.1:50051";
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             Channel channel = new Channel(target, ChannelCredentials.Insecure);
 
-            channel.ConnectAsync().ContinueWith((task) =>
+            await channel.ConnectAsync().ContinueWith((task) =>
             {
-                if(task.Status == TaskStatus.RanToCompletion)
+                if (task.Status == TaskStatus.RanToCompletion)
                 {
                     Console.WriteLine("The client connected successfuly");
                 }
@@ -35,30 +35,70 @@ namespace ClientSide
                 LastName = "Clementes"
             };
 
-            var request = new GreetingRequest()
-            {
-                Greeting = greeting
-            };
+            #region "Unary"
+            //var request = new GreetingRequest()
+            //{
+            //    Greeting = greeting
+            //};
 
-            var response = client.Greet(request);
-            Console.WriteLine(response.Result);
+            //var response = client.Greet(request);
+            //Console.WriteLine(response.Result);
+            #endregion
 
-            //Calculator
+            #region "Server streaming"
+            //var request = new GreetingManyTimesRequest
+            //{
+            //    Greeting = greeting
+            //};
+
+            //var response = client.GreetManyTimes(request);
+
+            //while (await response.ResponseStream.MoveNext())
+            //{
+            //    Console.WriteLine(response.ResponseStream.Current.Result);
+            //    await Task.Delay(200);
+            //}
+
+            #endregion
+            #region "Calculator"
             var calcClient = new CalculatorService.CalculatorServiceClient(channel);
 
-            var calc = new Calculator
+            //var calc = new Calculator
+            //{
+            //    FirstNumber = 10,
+            //    SecondNumber = 10
+            //};
+
+            //var calcRequest = new CalculatorRequest()
+            //{
+            //    Calculator = calc
+            //};
+
+            //var responseCalc = calcClient.Calc(calcRequest);
+            //Console.WriteLine(responseCalc.Result);
+            #endregion
+
+            #region "Number to Prime Numbers"
+
+            NumberForDecomposition numberForDecomposition = new NumberForDecomposition()
             {
-                FirstNumber = 10,
-                SecondNumber = 10
+                Number = 120
             };
 
-            var calcRequest = new CalculatorRequest()
+            var primeNumberRequest = new PrimeNumberRequest()
             {
-                Calculator = calc
+                NumberForDecomposition = numberForDecomposition
             };
 
-            var responseCalc = calcClient.Calc(calcRequest);
-            Console.WriteLine(responseCalc.Result);
+
+            var responsePrimeNumbers = calcClient.PrimeNumber(primeNumberRequest);
+
+            while (await responsePrimeNumbers.ResponseStream.MoveNext())
+            {
+                Console.WriteLine(responsePrimeNumbers.ResponseStream.Current.Result);
+                await Task.Delay(200);
+            }
+            #endregion
 
             channel.ShutdownAsync().Wait();
             Console.ReadKey();

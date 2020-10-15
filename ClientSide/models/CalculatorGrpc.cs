@@ -44,6 +44,8 @@ namespace Calc {
 
     static readonly grpc::Marshaller<global::Calc.CalculatorRequest> __Marshaller_calc_CalculatorRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calc.CalculatorRequest.Parser));
     static readonly grpc::Marshaller<global::Calc.CalculatorResponse> __Marshaller_calc_CalculatorResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calc.CalculatorResponse.Parser));
+    static readonly grpc::Marshaller<global::Calc.PrimeNumberRequest> __Marshaller_calc_PrimeNumberRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calc.PrimeNumberRequest.Parser));
+    static readonly grpc::Marshaller<global::Calc.PrimeNumberResponse> __Marshaller_calc_PrimeNumberResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calc.PrimeNumberResponse.Parser));
 
     static readonly grpc::Method<global::Calc.CalculatorRequest, global::Calc.CalculatorResponse> __Method_Calc = new grpc::Method<global::Calc.CalculatorRequest, global::Calc.CalculatorResponse>(
         grpc::MethodType.Unary,
@@ -51,6 +53,13 @@ namespace Calc {
         "Calc",
         __Marshaller_calc_CalculatorRequest,
         __Marshaller_calc_CalculatorResponse);
+
+    static readonly grpc::Method<global::Calc.PrimeNumberRequest, global::Calc.PrimeNumberResponse> __Method_PrimeNumber = new grpc::Method<global::Calc.PrimeNumberRequest, global::Calc.PrimeNumberResponse>(
+        grpc::MethodType.ServerStreaming,
+        __ServiceName,
+        "PrimeNumber",
+        __Marshaller_calc_PrimeNumberRequest,
+        __Marshaller_calc_PrimeNumberResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -63,6 +72,11 @@ namespace Calc {
     public abstract partial class CalculatorServiceBase
     {
       public virtual global::System.Threading.Tasks.Task<global::Calc.CalculatorResponse> Calc(global::Calc.CalculatorRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task PrimeNumber(global::Calc.PrimeNumberRequest request, grpc::IServerStreamWriter<global::Calc.PrimeNumberResponse> responseStream, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -108,6 +122,14 @@ namespace Calc {
       {
         return CallInvoker.AsyncUnaryCall(__Method_Calc, null, options, request);
       }
+      public virtual grpc::AsyncServerStreamingCall<global::Calc.PrimeNumberResponse> PrimeNumber(global::Calc.PrimeNumberRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return PrimeNumber(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncServerStreamingCall<global::Calc.PrimeNumberResponse> PrimeNumber(global::Calc.PrimeNumberRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncServerStreamingCall(__Method_PrimeNumber, null, options, request);
+      }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override CalculatorServiceClient NewInstance(ClientBaseConfiguration configuration)
       {
@@ -120,7 +142,8 @@ namespace Calc {
     public static grpc::ServerServiceDefinition BindService(CalculatorServiceBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
-          .AddMethod(__Method_Calc, serviceImpl.Calc).Build();
+          .AddMethod(__Method_Calc, serviceImpl.Calc)
+          .AddMethod(__Method_PrimeNumber, serviceImpl.PrimeNumber).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
@@ -130,6 +153,7 @@ namespace Calc {
     public static void BindService(grpc::ServiceBinderBase serviceBinder, CalculatorServiceBase serviceImpl)
     {
       serviceBinder.AddMethod(__Method_Calc, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Calc.CalculatorRequest, global::Calc.CalculatorResponse>(serviceImpl.Calc));
+      serviceBinder.AddMethod(__Method_PrimeNumber, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::Calc.PrimeNumberRequest, global::Calc.PrimeNumberResponse>(serviceImpl.PrimeNumber));
     }
 
   }
