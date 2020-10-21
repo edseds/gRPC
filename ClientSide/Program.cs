@@ -60,6 +60,7 @@ namespace ClientSide
             //}
 
             #endregion
+
             #region "Calculator"
             var calcClient = new CalculatorService.CalculatorServiceClient(channel);
 
@@ -80,24 +81,54 @@ namespace ClientSide
 
             #region "Number to Prime Numbers"
 
-            NumberForDecomposition numberForDecomposition = new NumberForDecomposition()
+            //NumberForDecomposition numberForDecomposition = new NumberForDecomposition()
+            //{
+            //    Number = 120
+            //};
+
+            //var primeNumberRequest = new PrimeNumberRequest()
+            //{
+            //    NumberForDecomposition = numberForDecomposition
+            //};
+
+
+            //var responsePrimeNumbers = calcClient.PrimeNumber(primeNumberRequest);
+
+            //while (await responsePrimeNumbers.ResponseStream.MoveNext())
+            //{
+            //    Console.WriteLine(responsePrimeNumbers.ResponseStream.Current.Result);
+            //    await Task.Delay(200);
+            //}
+            #endregion
+
+            #region "Client streaming"
+            //var request = new LongGreetingRequest() { Greeting = greeting };
+            //var stream = client.LongGreet();
+
+            //foreach(int i in Enumerable.Range(1, 10))
+            //{
+            //    await stream.RequestStream.WriteAsync(request);
+            //}
+
+            //await stream.RequestStream.CompleteAsync();
+            //var response = await stream.ResponseAsync;
+            //Console.WriteLine(response.Result);
+
+
+            #endregion
+
+            #region "Client streaming Avg"
+            List<int> providedNumberList = new List<int>()
+            { 1,2,3,4};
+            var stream = calcClient.ComputeAvg();
+            foreach (var number in providedNumberList)
             {
-                Number = 120
-            };
-
-            var primeNumberRequest = new PrimeNumberRequest()
-            {
-                NumberForDecomposition = numberForDecomposition
-            };
-
-
-            var responsePrimeNumbers = calcClient.PrimeNumber(primeNumberRequest);
-
-            while (await responsePrimeNumbers.ResponseStream.MoveNext())
-            {
-                Console.WriteLine(responsePrimeNumbers.ResponseStream.Current.Result);
-                await Task.Delay(200);
+                await stream.RequestStream.WriteAsync(new ComputeAvgRequest() { Number = number });
             }
+
+            await stream.RequestStream.CompleteAsync();
+            var resposne = await stream.ResponseAsync;
+            Console.WriteLine(resposne.Avg);
             #endregion
 
             channel.ShutdownAsync().Wait();

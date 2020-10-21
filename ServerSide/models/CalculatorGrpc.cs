@@ -46,6 +46,8 @@ namespace Calc {
     static readonly grpc::Marshaller<global::Calc.CalculatorResponse> __Marshaller_calc_CalculatorResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calc.CalculatorResponse.Parser));
     static readonly grpc::Marshaller<global::Calc.PrimeNumberRequest> __Marshaller_calc_PrimeNumberRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calc.PrimeNumberRequest.Parser));
     static readonly grpc::Marshaller<global::Calc.PrimeNumberResponse> __Marshaller_calc_PrimeNumberResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calc.PrimeNumberResponse.Parser));
+    static readonly grpc::Marshaller<global::Calc.ComputeAvgRequest> __Marshaller_calc_ComputeAvgRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calc.ComputeAvgRequest.Parser));
+    static readonly grpc::Marshaller<global::Calc.ComputeAvgResponse> __Marshaller_calc_ComputeAvgResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calc.ComputeAvgResponse.Parser));
 
     static readonly grpc::Method<global::Calc.CalculatorRequest, global::Calc.CalculatorResponse> __Method_Calc = new grpc::Method<global::Calc.CalculatorRequest, global::Calc.CalculatorResponse>(
         grpc::MethodType.Unary,
@@ -60,6 +62,13 @@ namespace Calc {
         "PrimeNumber",
         __Marshaller_calc_PrimeNumberRequest,
         __Marshaller_calc_PrimeNumberResponse);
+
+    static readonly grpc::Method<global::Calc.ComputeAvgRequest, global::Calc.ComputeAvgResponse> __Method_ComputeAvg = new grpc::Method<global::Calc.ComputeAvgRequest, global::Calc.ComputeAvgResponse>(
+        grpc::MethodType.ClientStreaming,
+        __ServiceName,
+        "ComputeAvg",
+        __Marshaller_calc_ComputeAvgRequest,
+        __Marshaller_calc_ComputeAvgResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -77,6 +86,11 @@ namespace Calc {
       }
 
       public virtual global::System.Threading.Tasks.Task PrimeNumber(global::Calc.PrimeNumberRequest request, grpc::IServerStreamWriter<global::Calc.PrimeNumberResponse> responseStream, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::Calc.ComputeAvgResponse> ComputeAvg(grpc::IAsyncStreamReader<global::Calc.ComputeAvgRequest> requestStream, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -130,6 +144,14 @@ namespace Calc {
       {
         return CallInvoker.AsyncServerStreamingCall(__Method_PrimeNumber, null, options, request);
       }
+      public virtual grpc::AsyncClientStreamingCall<global::Calc.ComputeAvgRequest, global::Calc.ComputeAvgResponse> ComputeAvg(grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return ComputeAvg(new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncClientStreamingCall<global::Calc.ComputeAvgRequest, global::Calc.ComputeAvgResponse> ComputeAvg(grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncClientStreamingCall(__Method_ComputeAvg, null, options);
+      }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override CalculatorServiceClient NewInstance(ClientBaseConfiguration configuration)
       {
@@ -143,7 +165,8 @@ namespace Calc {
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_Calc, serviceImpl.Calc)
-          .AddMethod(__Method_PrimeNumber, serviceImpl.PrimeNumber).Build();
+          .AddMethod(__Method_PrimeNumber, serviceImpl.PrimeNumber)
+          .AddMethod(__Method_ComputeAvg, serviceImpl.ComputeAvg).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
@@ -154,6 +177,7 @@ namespace Calc {
     {
       serviceBinder.AddMethod(__Method_Calc, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Calc.CalculatorRequest, global::Calc.CalculatorResponse>(serviceImpl.Calc));
       serviceBinder.AddMethod(__Method_PrimeNumber, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::Calc.PrimeNumberRequest, global::Calc.PrimeNumberResponse>(serviceImpl.PrimeNumber));
+      serviceBinder.AddMethod(__Method_ComputeAvg, serviceImpl == null ? null : new grpc::ClientStreamingServerMethod<global::Calc.ComputeAvgRequest, global::Calc.ComputeAvgResponse>(serviceImpl.ComputeAvg));
     }
 
   }

@@ -2,6 +2,7 @@
 using Grpc.Core;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using static Calc.CalculatorService;
 
@@ -27,6 +28,16 @@ namespace ServerSide
                     Result = i
                 });
             }
+        }
+
+        public override async Task<ComputeAvgResponse> ComputeAvg(IAsyncStreamReader<ComputeAvgRequest> requestStream, ServerCallContext context)
+        {
+            List<int> numberList = new List<int>();
+            while (await requestStream.MoveNext())
+            {
+                numberList.Add(requestStream.Current.Number);
+            }
+            return new ComputeAvgResponse() { Avg = numberList.Average() };
         }
 
         public List<int> GetPrimes(int number)
