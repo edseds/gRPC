@@ -40,6 +40,20 @@ namespace ServerSide
             return new ComputeAvgResponse() { Avg = numberList.Average() };
         }
 
+        public override async Task FindMaxNumber(IAsyncStreamReader<FindMaxNumberRequest> requestStream, IServerStreamWriter<FindMaxNumberResponse> responseStream, ServerCallContext context)
+        {
+            int? max = null;
+
+            while(await requestStream.MoveNext())
+            {
+                if(max == null || max < requestStream.Current.Number)
+                {
+                    max = requestStream.Current.Number;
+                    await responseStream.WriteAsync(new FindMaxNumberResponse() { Max = max.Value });
+                }
+            }
+        }
+
         public List<int> GetPrimes(int number)
         {
             var primes = new List<int>();

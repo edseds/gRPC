@@ -48,6 +48,8 @@ namespace Calc {
     static readonly grpc::Marshaller<global::Calc.PrimeNumberResponse> __Marshaller_calc_PrimeNumberResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calc.PrimeNumberResponse.Parser));
     static readonly grpc::Marshaller<global::Calc.ComputeAvgRequest> __Marshaller_calc_ComputeAvgRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calc.ComputeAvgRequest.Parser));
     static readonly grpc::Marshaller<global::Calc.ComputeAvgResponse> __Marshaller_calc_ComputeAvgResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calc.ComputeAvgResponse.Parser));
+    static readonly grpc::Marshaller<global::Calc.FindMaxNumberRequest> __Marshaller_calc_FindMaxNumberRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calc.FindMaxNumberRequest.Parser));
+    static readonly grpc::Marshaller<global::Calc.FindMaxNumberResponse> __Marshaller_calc_FindMaxNumberResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Calc.FindMaxNumberResponse.Parser));
 
     static readonly grpc::Method<global::Calc.CalculatorRequest, global::Calc.CalculatorResponse> __Method_Calc = new grpc::Method<global::Calc.CalculatorRequest, global::Calc.CalculatorResponse>(
         grpc::MethodType.Unary,
@@ -70,6 +72,13 @@ namespace Calc {
         __Marshaller_calc_ComputeAvgRequest,
         __Marshaller_calc_ComputeAvgResponse);
 
+    static readonly grpc::Method<global::Calc.FindMaxNumberRequest, global::Calc.FindMaxNumberResponse> __Method_FindMaxNumber = new grpc::Method<global::Calc.FindMaxNumberRequest, global::Calc.FindMaxNumberResponse>(
+        grpc::MethodType.DuplexStreaming,
+        __ServiceName,
+        "FindMaxNumber",
+        __Marshaller_calc_FindMaxNumberRequest,
+        __Marshaller_calc_FindMaxNumberResponse);
+
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
     {
@@ -91,6 +100,11 @@ namespace Calc {
       }
 
       public virtual global::System.Threading.Tasks.Task<global::Calc.ComputeAvgResponse> ComputeAvg(grpc::IAsyncStreamReader<global::Calc.ComputeAvgRequest> requestStream, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task FindMaxNumber(grpc::IAsyncStreamReader<global::Calc.FindMaxNumberRequest> requestStream, grpc::IServerStreamWriter<global::Calc.FindMaxNumberResponse> responseStream, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -152,6 +166,14 @@ namespace Calc {
       {
         return CallInvoker.AsyncClientStreamingCall(__Method_ComputeAvg, null, options);
       }
+      public virtual grpc::AsyncDuplexStreamingCall<global::Calc.FindMaxNumberRequest, global::Calc.FindMaxNumberResponse> FindMaxNumber(grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return FindMaxNumber(new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncDuplexStreamingCall<global::Calc.FindMaxNumberRequest, global::Calc.FindMaxNumberResponse> FindMaxNumber(grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncDuplexStreamingCall(__Method_FindMaxNumber, null, options);
+      }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override CalculatorServiceClient NewInstance(ClientBaseConfiguration configuration)
       {
@@ -166,7 +188,8 @@ namespace Calc {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_Calc, serviceImpl.Calc)
           .AddMethod(__Method_PrimeNumber, serviceImpl.PrimeNumber)
-          .AddMethod(__Method_ComputeAvg, serviceImpl.ComputeAvg).Build();
+          .AddMethod(__Method_ComputeAvg, serviceImpl.ComputeAvg)
+          .AddMethod(__Method_FindMaxNumber, serviceImpl.FindMaxNumber).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
@@ -178,6 +201,7 @@ namespace Calc {
       serviceBinder.AddMethod(__Method_Calc, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Calc.CalculatorRequest, global::Calc.CalculatorResponse>(serviceImpl.Calc));
       serviceBinder.AddMethod(__Method_PrimeNumber, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::Calc.PrimeNumberRequest, global::Calc.PrimeNumberResponse>(serviceImpl.PrimeNumber));
       serviceBinder.AddMethod(__Method_ComputeAvg, serviceImpl == null ? null : new grpc::ClientStreamingServerMethod<global::Calc.ComputeAvgRequest, global::Calc.ComputeAvgResponse>(serviceImpl.ComputeAvg));
+      serviceBinder.AddMethod(__Method_FindMaxNumber, serviceImpl == null ? null : new grpc::DuplexStreamingServerMethod<global::Calc.FindMaxNumberRequest, global::Calc.FindMaxNumberResponse>(serviceImpl.FindMaxNumber));
     }
 
   }

@@ -33,12 +33,15 @@ namespace Calc {
             "IAEoCzIcLmNhbGMuTnVtYmVyRm9yRGVjb21wb3NpdGlvbiIlChNQcmltZU51",
             "bWJlclJlc3BvbnNlEg4KBnJlc3VsdBgBIAEoBSIjChFDb21wdXRlQXZnUmVx",
             "dWVzdBIOCgZudW1iZXIYASABKAUiIQoSQ29tcHV0ZUF2Z1Jlc3BvbnNlEgsK",
-            "A2F2ZxgBIAEoATLdAQoRQ2FsY3VsYXRvclNlcnZpY2USOwoEQ2FsYxIXLmNh",
-            "bGMuQ2FsY3VsYXRvclJlcXVlc3QaGC5jYWxjLkNhbGN1bGF0b3JSZXNwb25z",
-            "ZSIAEkYKC1ByaW1lTnVtYmVyEhguY2FsYy5QcmltZU51bWJlclJlcXVlc3Qa",
-            "GS5jYWxjLlByaW1lTnVtYmVyUmVzcG9uc2UiADABEkMKCkNvbXB1dGVBdmcS",
-            "Fy5jYWxjLkNvbXB1dGVBdmdSZXF1ZXN0GhguY2FsYy5Db21wdXRlQXZnUmVz",
-            "cG9uc2UiACgBYgZwcm90bzM="));
+            "A2F2ZxgBIAEoASImChRGaW5kTWF4TnVtYmVyUmVxdWVzdBIOCgZudW1iZXIY",
+            "ASABKAUiJAoVRmluZE1heE51bWJlclJlc3BvbnNlEgsKA21heBgBIAEoBTKt",
+            "AgoRQ2FsY3VsYXRvclNlcnZpY2USOwoEQ2FsYxIXLmNhbGMuQ2FsY3VsYXRv",
+            "clJlcXVlc3QaGC5jYWxjLkNhbGN1bGF0b3JSZXNwb25zZSIAEkYKC1ByaW1l",
+            "TnVtYmVyEhguY2FsYy5QcmltZU51bWJlclJlcXVlc3QaGS5jYWxjLlByaW1l",
+            "TnVtYmVyUmVzcG9uc2UiADABEkMKCkNvbXB1dGVBdmcSFy5jYWxjLkNvbXB1",
+            "dGVBdmdSZXF1ZXN0GhguY2FsYy5Db21wdXRlQXZnUmVzcG9uc2UiACgBEk4K",
+            "DUZpbmRNYXhOdW1iZXISGi5jYWxjLkZpbmRNYXhOdW1iZXJSZXF1ZXN0Ghsu",
+            "Y2FsYy5GaW5kTWF4TnVtYmVyUmVzcG9uc2UiACgBMAFiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -49,7 +52,9 @@ namespace Calc {
             new pbr::GeneratedClrTypeInfo(typeof(global::Calc.PrimeNumberRequest), global::Calc.PrimeNumberRequest.Parser, new[]{ "NumberForDecomposition" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Calc.PrimeNumberResponse), global::Calc.PrimeNumberResponse.Parser, new[]{ "Result" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Calc.ComputeAvgRequest), global::Calc.ComputeAvgRequest.Parser, new[]{ "Number" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Calc.ComputeAvgResponse), global::Calc.ComputeAvgResponse.Parser, new[]{ "Avg" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Calc.ComputeAvgResponse), global::Calc.ComputeAvgResponse.Parser, new[]{ "Avg" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Calc.FindMaxNumberRequest), global::Calc.FindMaxNumberRequest.Parser, new[]{ "Number" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Calc.FindMaxNumberResponse), global::Calc.FindMaxNumberResponse.Parser, new[]{ "Max" }, null, null, null, null)
           }));
     }
     #endregion
@@ -1477,6 +1482,350 @@ namespace Calc {
             break;
           case 9: {
             Avg = input.ReadDouble();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class FindMaxNumberRequest : pb::IMessage<FindMaxNumberRequest>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<FindMaxNumberRequest> _parser = new pb::MessageParser<FindMaxNumberRequest>(() => new FindMaxNumberRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<FindMaxNumberRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Calc.CalculatorReflection.Descriptor.MessageTypes[8]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FindMaxNumberRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FindMaxNumberRequest(FindMaxNumberRequest other) : this() {
+      number_ = other.number_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FindMaxNumberRequest Clone() {
+      return new FindMaxNumberRequest(this);
+    }
+
+    /// <summary>Field number for the "number" field.</summary>
+    public const int NumberFieldNumber = 1;
+    private int number_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Number {
+      get { return number_; }
+      set {
+        number_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as FindMaxNumberRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(FindMaxNumberRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Number != other.Number) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Number != 0) hash ^= Number.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Number != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Number);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Number != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Number);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Number != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Number);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(FindMaxNumberRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Number != 0) {
+        Number = other.Number;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Number = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            Number = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class FindMaxNumberResponse : pb::IMessage<FindMaxNumberResponse>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<FindMaxNumberResponse> _parser = new pb::MessageParser<FindMaxNumberResponse>(() => new FindMaxNumberResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<FindMaxNumberResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Calc.CalculatorReflection.Descriptor.MessageTypes[9]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FindMaxNumberResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FindMaxNumberResponse(FindMaxNumberResponse other) : this() {
+      max_ = other.max_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FindMaxNumberResponse Clone() {
+      return new FindMaxNumberResponse(this);
+    }
+
+    /// <summary>Field number for the "max" field.</summary>
+    public const int MaxFieldNumber = 1;
+    private int max_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Max {
+      get { return max_; }
+      set {
+        max_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as FindMaxNumberResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(FindMaxNumberResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Max != other.Max) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Max != 0) hash ^= Max.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Max != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Max);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Max != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Max);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Max != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Max);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(FindMaxNumberResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Max != 0) {
+        Max = other.Max;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Max = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            Max = input.ReadInt32();
             break;
           }
         }

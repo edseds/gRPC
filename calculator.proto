@@ -37,10 +37,19 @@ message ComputeAvgResponse {
 	double avg = 1;
 }
 
+message FindMaxNumberRequest {
+	int32 number = 1;
+}
+
+message FindMaxNumberResponse {
+	int32 max = 1;
+}
+
 service CalculatorService {
 	rpc Calc (CalculatorRequest) returns (CalculatorResponse) {}
 	rpc PrimeNumber (PrimeNumberRequest) returns (stream PrimeNumberResponse) {}
 	rpc ComputeAvg (stream ComputeAvgRequest) returns (ComputeAvgResponse) {}
+	rpc FindMaxNumber(stream FindMaxNumberRequest) returns (stream FindMaxNumberResponse) {}
 
 
 }
