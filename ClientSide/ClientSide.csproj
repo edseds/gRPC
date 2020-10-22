@@ -73,6 +73,8 @@
     <Compile Include="models\CalculatorGrpc.cs" />
     <Compile Include="models\Dummy.cs" />
     <Compile Include="models\DummyGrpc.cs" />
+    <Compile Include="models\GreetDeadlines.cs" />
+    <Compile Include="models\GreetDeadlinesGrpc.cs" />
     <Compile Include="models\Greeting.cs" />
     <Compile Include="models\GreetingGrpc.cs" />
     <Compile Include="models\Sqrt.cs" />

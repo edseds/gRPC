@@ -1,5 +1,6 @@
 ﻿using Calc;
 using Greet;
+using GreetDeadlines;
 using Grpc.Core;
 using Sqrt;
 using System;
@@ -68,8 +69,13 @@ namespace ClientSide
             #endregion
 
             #region "Errors in gRPC"
-            CalcSqrt(new SqrtService.SqrtServiceClient(channel));
+            //CalcSqrt(new SqrtService.SqrtServiceClient(channel));
             #endregion
+
+            #region "Deadlines in gRPC"
+            GreetClientDeadlines(new GreetDeadlinesService.GreetDeadlinesServiceClient(channel));
+            #endregion
+
 
             channel.ShutdownAsync().Wait();
             Console.ReadKey();
@@ -237,6 +243,22 @@ namespace ClientSide
                 Console.WriteLine("Error: {0}", e.Status.Detail);
             }
 
+        }
+
+        public static void GreetClientDeadlines(GreetDeadlinesService.GreetDeadlinesServiceClient client)
+        {
+            try
+            {
+                var response = client.greet_with_deadline(new GreetDeadlinesRequest()
+                { Name = "John" },deadline:DateTime.UtcNow.AddMilliseconds(5000));
+
+                Console.WriteLine(response.Result);
+
+            }
+            catch (RpcException e) when (e.StatusCode == StatusCode.DeadlineExceeded)
+            {
+                Console.WriteLine("Error: {0}", e.Status.Detail);
+            }
         }
 
 

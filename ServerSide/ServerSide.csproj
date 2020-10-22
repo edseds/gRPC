@@ -70,9 +70,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalculatorServiceImp.cs" />
+    <Compile Include="GreetingDeadlinesImpl.cs" />
     <Compile Include="GreetingServiceImp.cs" />
     <Compile Include="models\Calculator.cs" />
     <Compile Include="models\CalculatorGrpc.cs" />
+    <Compile Include="models\GreetDeadlines.cs" />
+    <Compile Include="models\GreetDeadlinesGrpc.cs" />
     <Compile Include="models\Greeting.cs" />
     <Compile Include="models\GreetingGrpc.cs" />
     <Compile Include="models\Sqrt.cs" />
