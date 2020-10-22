@@ -2,6 +2,8 @@
 using Greet;
 using GreetDeadlines;
 using Grpc.Core;
+using Grpc.Reflection;
+using Grpc.Reflection.V1Alpha;
 using Sqrt;
 using System;
 using System.Collections.Generic;
@@ -18,6 +20,8 @@ namespace ServerSide
             Server server = null;
             try
             {
+                var reflectionServiceImpl = new ReflectionServiceImpl(GreetingService.Descriptor, ServerReflection.Descriptor);
+
                 var serverCert = File.ReadAllText("ssl/server.crt");
                 var serverKey = File.ReadAllText("ssl/server.key");
                 var keypair = new KeyCertificatePair(serverCert, serverKey);
@@ -33,10 +37,11 @@ namespace ServerSide
                         GreetingService.BindService(new GreetingServiceImp()),
                         CalculatorService.BindService(new CalculatorServiceImp()),
                         SqrtService.BindService(new SqrtServiceImpl()),
-                        GreetDeadlinesService.BindService(new GreetingDeadlinesImpl())
+                        GreetDeadlinesService.BindService(new GreetingDeadlinesImpl()),
+                        ServerReflection.BindService(reflectionServiceImpl)
                     },
 
-                    Ports = { new ServerPort("localhost", Port, credentials) }
+                    Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
                 };
 
                 server.Start();

@@ -90,6 +90,7 @@ StyleCopReport.xml
 *.key
 *.crt
 *.csr
+*.exe
 
 # Chutzpah Test files
 _Chutzpah*
