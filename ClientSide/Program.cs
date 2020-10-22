@@ -1,6 +1,7 @@
 ﻿using Calc;
 using Greet;
 using Grpc.Core;
+using Sqrt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,7 +64,11 @@ namespace ClientSide
             #endregion
 
             #region "Find Max Number"
-            await FindMaxNumber(calcClient);
+            //await FindMaxNumber(calcClient);
+            #endregion
+
+            #region "Errors in gRPC"
+            CalcSqrt(new SqrtService.SqrtServiceClient(channel));
             #endregion
 
             channel.ShutdownAsync().Wait();
@@ -217,5 +222,23 @@ namespace ClientSide
             await responseReaderTask;
 
         }
+
+        public static void CalcSqrt(SqrtService.SqrtServiceClient client)
+        {
+            int number = -1;
+
+            try
+            {
+                var response = client.sqrt(new SqrtRequest() { Number = number });
+                Console.WriteLine(response.SquareRoot);
+            }
+            catch(RpcException e)
+            {
+                Console.WriteLine("Error: {0}", e.Status.Detail);
+            }
+
+        }
+
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Calc;
 using Greet;
 using Grpc.Core;
+using Sqrt;
 using System;
 using System.IO;
 
@@ -21,7 +22,9 @@ namespace ServerSide
                     {
                         GreetingService.BindService(new GreetingServiceImp()),
                         CalculatorService.BindService(new CalculatorServiceImp()),
+                        SqrtService.BindService(new SqrtServiceImpl())
                     },
+
                     Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
                 };
 

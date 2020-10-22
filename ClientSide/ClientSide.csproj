@@ -75,6 +75,8 @@
     <Compile Include="models\DummyGrpc.cs" />
     <Compile Include="models\Greeting.cs" />
     <Compile Include="models\GreetingGrpc.cs" />
+    <Compile Include="models\Sqrt.cs" />
+    <Compile Include="models\SqrtGrpc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
