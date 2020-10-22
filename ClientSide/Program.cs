@@ -5,6 +5,7 @@ using Grpc.Core;
 using Sqrt;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,11 +13,16 @@ namespace ClientSide
 {
     class Program
     {
-        const string target = "127.0.0.1:50051";
+        //const string target = "127.0.0.1:50051";
 
         static async Task Main(string[] args)
         {
-            Channel channel = new Channel(target, ChannelCredentials.Insecure);
+            var clientCert = File.ReadAllText("ssl/client.crt");
+            var clientKey = File.ReadAllText("ssl/client.key");
+            var caCrt = File.ReadAllText("ssl/ca.crt");
+            var channelCredentials = new SslCredentials(caCrt, new KeyCertificatePair(clientCert, clientKey));
+
+            Channel channel = new Channel("localhost", 50051, channelCredentials);
 
             await channel.ConnectAsync().ContinueWith((task) =>
             {
@@ -37,7 +43,7 @@ namespace ClientSide
             };
 
             #region "Unary"
-            //DoSimpleGreet(client, new GreetingRequest() { Greeting = greeting });
+            DoSimpleGreet(client, new GreetingRequest() { Greeting = greeting });
             #endregion
 
             #region "Server streaming"
@@ -73,9 +79,8 @@ namespace ClientSide
             #endregion
 
             #region "Deadlines in gRPC"
-            GreetClientDeadlines(new GreetDeadlinesService.GreetDeadlinesServiceClient(channel));
+            //GreetClientDeadlines(new GreetDeadlinesService.GreetDeadlinesServiceClient(channel));
             #endregion
-
 
             channel.ShutdownAsync().Wait();
             Console.ReadKey();

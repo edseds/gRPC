@@ -4,6 +4,7 @@ using GreetDeadlines;
 using Grpc.Core;
 using Sqrt;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace ServerSide
@@ -17,6 +18,14 @@ namespace ServerSide
             Server server = null;
             try
             {
+                var serverCert = File.ReadAllText("ssl/server.crt");
+                var serverKey = File.ReadAllText("ssl/server.key");
+                var keypair = new KeyCertificatePair(serverCert, serverKey);
+                var cacert = File.ReadAllText("ssl/ca.crt");
+
+                var credentials = new SslServerCredentials(
+                    new List<KeyCertificatePair>() { keypair }, cacert, true);
+
                 server = new Server()
                 {
                     Services =
@@ -27,7 +36,7 @@ namespace ServerSide
                         GreetDeadlinesService.BindService(new GreetingDeadlinesImpl())
                     },
 
-                    Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
+                    Ports = { new ServerPort("localhost", Port, credentials) }
                 };
 
                 server.Start();
